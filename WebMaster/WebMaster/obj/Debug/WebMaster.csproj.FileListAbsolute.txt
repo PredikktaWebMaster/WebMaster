@@ -232,3 +232,4 @@ D:\WebMaster\WebMaster\WebMaster\bin\System.Web.Http.xml
 D:\WebMaster\WebMaster\WebMaster\bin\System.Web.Http.WebHost.xml
 D:\WebMaster\WebMaster\WebMaster\obj\Debug\WebMaster.dll
 D:\WebMaster\WebMaster\WebMaster\obj\Debug\WebMaster.pdb
+D:\WebMaster\WebMaster\WebMaster\obj\Debug\WebMaster.csprojResolveAssemblyReference.cache

@@ -2,6 +2,10 @@
 var row1;
 var row2;
 var row3;
+var c1;
+var c2;
+var c3;
+var c4;
 var series = Array();
 var totalClick = 0;
 var totalCTR = 0.0;
@@ -102,7 +106,7 @@ $(document).ready(function () {
                             $("#charts_comp").css("display", "none");
                             $("#charts").css("display", "block");
                             $("#charts").css("display", "block");
-                            $("#mytable3").css("display", "block");
+                            $("#mytable3").css("display", "table");
                             highlight("mytable3")
                             formData(data, 0)
 
@@ -170,7 +174,7 @@ $(document).ready(function () {
                 if (startDate == $('#calStartDate').val() && endDate == $('#calEndDate').val() && queryHitter > 0) {
                     $("#load").css("display", "none");
                     NProgress.done();
-                    $("#mytable").css("display", "block");
+                    $("#mytable").css("display", "table");
                     $("#charts").css("display", "block");
                 }
                 else {
@@ -191,7 +195,7 @@ $(document).ready(function () {
                                 var loopLimit = data.length >= 2000 ? 2000 : data.length;
                                 for (var i = 0; i < loopLimit; i++) {
 
-                                    row += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Query + "\",\"Query\")'><td class=\"column\">" + data[i].Query + "</td><td class=\"column\">" + data[i].Clicks + "</td><td class=\"column\">" + data[i].Impressions + "</td><td class=\"column\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column\">" + data[i].Position.toFixed(1) + "</td></tr>";
+                                    row += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Query + "\",\"Query\")'><td class=\"column\">" + data[i].Query + "</td><td class=\"column Query_Clicks\">" + data[i].Clicks + "</td><td class=\"column Query_Impressions\">" + data[i].Impressions + "</td><td class=\"column Query_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Query_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                                 }
                                 $("#tablebody").html(row);
                                 $("#tablebody").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable\');"> DOWNLOAD </button></td></tr>');
@@ -201,7 +205,16 @@ $(document).ready(function () {
                                 highlight("mytable");
                                 $("#load").css("display", "none");
                                 NProgress.done();
-                                $("#mytable").css("display", "block");
+                                //for (var b = 0; b < 4; b++)
+                                //{
+                                //    if(c1.series[b].visible == false)
+                                //    {
+                                //        //$('td:nth-child(#' + c1.series[b].name + '),th:nth-child(#' + c1.series[b].name + ')').hide();
+                                //        $(".Query_" + c1.series[b].name).hide();
+                                //    }
+                                //}
+                                columnHide(4, c1, "Query");
+                                $("#mytable").css("display", "table");
                                 $("#charts").css("display", "block");
                             }
                         });
@@ -261,7 +274,7 @@ $(document).ready(function () {
                             var loopLimit = data[1].length >= 2000 ? 2000 : data[1].length;
                             for (var i = 0; i < loopLimit; i++) {
 
-                                row += "<tr style='cursor:pointer' onclick='eachRowComp(\"" + data[0][i].Query + "\",\"Query\")'><td>" + data[0][i].Query + "</td><td>" + data[0][i].Clicks + "</td><td>" + data[1][i].Clicks + "</td><td>" + data[0][i].Impressions + "</td><td>" + data[1][i].Impressions + "</td><td>" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td>" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td>" + data[0][i].Position.toFixed(1) + "</td><td>" + data[1][i].Position.toFixed(1) + "</td></tr>";
+                                row += "<tr style='cursor:pointer' onclick='eachRowComp(\"" + data[0][i].Query + "\",\"Query\")'><td>" + data[0][i].Query + "</td><td class=\"Query_Clicks_1\">" + data[0][i].Clicks + "</td><td class=\"Query_Clicks_2\">" + data[1][i].Clicks + "</td><td class=\"Query_Impressions_1\">" + data[0][i].Impressions + "</td><td class=\"Query_Impressions_2\">" + data[1][i].Impressions + "</td><td class=\"Query_CTR_1\">" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td class=\"Query_CTR_2\">" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td class=\"Query_Position_1\">" + data[0][i].Position.toFixed(1) + "</td><td class=\"Query_Position_2\">" + data[1][i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#mytable4").append(row);
                             $("#mytable4").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable4\');"> DOWNLOAD </button></td></tr>');
@@ -271,7 +284,17 @@ $(document).ready(function () {
                             highlight("mytable4");
                             $("#load").css("display", "none");
                             NProgress.done();
-                            $("#mytable4").css("display", "block");
+                            //for (var b = 0; b < 8; b++) {
+                            //    if (c3.series[b].visible == false) {
+                            //        //$('td:nth-child(#' + c1.series[b].name + '),th:nth-child(#' + c1.series[b].name + ')').hide();
+                            //        $(".Query_" + c3.series[b].name + "_1, #" + c3.series[b].name + "_1").hide();
+                            //        $(".Query_" + c3.series[b].name + "_2, #" + c3.series[b].name + "_2").hide();
+                            //    }
+                            //}
+
+                            compareColumnHide(8, c3, "Query");
+
+                            $("#mytable4").css("display", "table");
                             $("#charts_comp").css("display", "block");
                         }
                     });
@@ -301,7 +324,7 @@ $(document).ready(function () {
                 if (startDate == $('#calStartDate').val() && endDate == $('#calEndDate').val() && pageHitter > 0) {
                     $("#load").css("display", "none");
                     NProgress.done();
-                    $("#mytable1").css("display", "block");
+                    $("#mytable1").css("display", "table");
                     $("#charts").css("display", "block");
                 }
                 else {
@@ -316,7 +339,7 @@ $(document).ready(function () {
                             success: function (data) {
                                 row1 = "";
                                 for (var i = 0; i < data.length; i++) {
-                                    row1 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Page + "\",\"Page\")'><td class=\"column\">" + data[i].Page + "</td><td class=\"column\">" + data[i].Clicks + "</td><td class=\"column\">" + data[i].Impressions + "</td><td class=\"column\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column\">" + data[i].Position.toFixed(1) + "</td></tr>";
+                                    row1 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Page + "\",\"Page\")'><td class=\"column\">" + data[i].Page + "</td><td class=\"column Page_Clicks\">" + data[i].Clicks + "</td><td class=\"column Page_Impressions\">" + data[i].Impressions + "</td><td class=\"column Page_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Page_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                                 }
                                 $("#tablebody1").html(row1);
                                 $("#tablebody1").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable1\');"> DOWNLOAD </button></td></tr>');
@@ -327,7 +350,14 @@ $(document).ready(function () {
                                 highlight("mytable1");
                                 $("#load").css("display", "none");
                                 NProgress.done();
-                                $("#mytable1").css("display", "block");
+                                //for (var b = 0; b < 4; b++) {
+                                //    if (c1.series[b].visible == false) {
+                                //        //$('td:nth-child(#' + c1.series[b].name + '),th:nth-child(#' + c1.series[b].name + ')').hide();
+                                //        $(".Page_" + c1.series[b].name).hide();
+                                //    }
+                                //}
+                                columnHide(4, c1, "Page");
+                                $("#mytable1").css("display", "table");
                                 $("#charts").css("display", "block");
                             }
                         });
@@ -383,7 +413,7 @@ $(document).ready(function () {
                             row1 = "";
                             for (var i = 0; i < data[1].length; i++) {
 
-                                row1 += "<tr style='cursor:pointer' onclick='eachRowComp(\"" + data[0][i].Page + "\",\"Page\")'><td>" + data[0][i].Page + "</td><td>" + data[0][i].Clicks + "</td><td>" + data[1][i].Clicks + "</td><td>" + data[0][i].Impressions + "</td><td>" + data[1][i].Impressions + "</td><td>" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td>" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td>" + data[0][i].Position.toFixed(1) + "</td><td>" + data[1][i].Position.toFixed(1) + "</td></tr>";
+                                row1 += "<tr style='cursor:pointer' onclick='eachRowComp(\"" + data[0][i].Page + "\",\"Page\")'><td>" + data[0][i].Page + "</td><td class=\"Page_Clicks_1\">" + data[0][i].Clicks + "</td><td class=\"Page_Clicks_2\">" + data[1][i].Clicks + "</td><td class=\"Page_Impressions_1\">" + data[0][i].Impressions + "</td><td class=\"Page_Impressions_2\">" + data[1][i].Impressions + "</td><td class=\"Page_CTR_1\">" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td class=\"Page_CTR_2\">" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td class=\"Page_Position_1\">" + data[0][i].Position.toFixed(1) + "</td><td class=\"Page_Position_2\">" + data[1][i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#mytable5").append(row1);
                             $("#mytable5").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable5\');"> DOWNLOAD </button></td></tr>');
@@ -394,7 +424,8 @@ $(document).ready(function () {
                             highlight("mytable5");
                             $("#load").css("display", "none");
                             NProgress.done();
-                            $("#mytable5").css("display", "block");
+                            compareColumnHide(8, c3, "Page");
+                            $("#mytable5").css("display", "table");
                             $("#charts_comp").css("display", "block");
                         }
                     });
@@ -424,7 +455,7 @@ $(document).ready(function () {
                 if (startDate == $('#calStartDate').val() && endDate == $('#calEndDate').val() && deviceHitter > 0) {
                     $("#load").css("display", "none");
                     NProgress.done();
-                    $("#mytable2").css("display", "block");
+                    $("#mytable2").css("display", "table");
                     $("#charts").css("display", "block");
                 }
                 else {
@@ -440,7 +471,8 @@ $(document).ready(function () {
                             success: function (data) {
                                 row2 = "";
                                 for (var i = 0; i < data.length; i++) {
-                                    row2 += "<tr><td class=\"column\">" + data[i].DeviceType + "</td><td class=\"column\">" + data[i].Clicks + "</td><td class=\"column\">" + data[i].Impressions + "</td><td class=\"column\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column\">" + data[i].Position.toFixed(1) + "</td></tr>";
+                                    var Typename = data[i].DeviceType == 1 ? "DESKTOP" : data[i].DeviceType == 2 ? "MOBILE" : data[i].DeviceType == 3 ? "TABLET" : null;
+                                    row2 += "<tr><td class=\"column\">" + Typename + "</td><td class=\"column Device_Clicks\">" + data[i].Clicks + "</td><td class=\"column Device_Impressions\">" + data[i].Impressions + "</td><td class=\"column Device_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Device_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                                 }
                                 $("#tablebody2").html(row2);
                                 $("#tablebody2").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable2\');"> DOWNLOAD </button></td></tr>');
@@ -450,7 +482,8 @@ $(document).ready(function () {
                                 formData(data, 1);
                                 $("#load").css("display", "none");
                                 NProgress.done();
-                                $("#mytable2").css("display", "block");
+                                columnHide(4, c1, "Device");
+                                $("#mytable2").css("display", "table");
                                 $("#charts").css("display", "block");
                             }
                         });
@@ -488,7 +521,7 @@ $(document).ready(function () {
 
                             row_head = "<thead>" +
                              " <tr>" +
-                            "<th>Queries</th>" +
+                            "<th>Devices</th>" +
                             "<th id='Clicks_1'>" + C1startDate.substr(C1startDate.indexOf('/') + 1, 2) + " " + months[new Date(C1startDate).getMonth()] + " - " + C1endDate.substr(C1endDate.indexOf('/') + 1, 2) + " " + months[new Date(C1endDate).getMonth()] + " Clicks</th>" +
                             "<th id='Clicks_2'>" + C2startDate.substr(C2startDate.indexOf('/') + 1, 2) + " " + months[new Date(C2startDate).getMonth()] + " - " + C2endDate.substr(C2endDate.indexOf('/') + 1, 2) + " " + months[new Date(C2endDate).getMonth()] + " Clicks</th>" +
                             "<th id='Impressions_1'>" + C1startDate.substr(C1startDate.indexOf('/') + 1, 2) + " " + months[new Date(C1startDate).getMonth()] + " - " + C1endDate.substr(C1endDate.indexOf('/') + 1, 2) + " " + months[new Date(C1endDate).getMonth()] + " Impressions</th>" +
@@ -504,8 +537,8 @@ $(document).ready(function () {
 
                             row2 = "";
                             for (var i = 0; i < data[1].length; i++) {
-
-                                row2 += "<tr><td>" + data[0][i].DeviceType + "</td><td>" + data[0][i].Clicks + "</td><td>" + data[1][i].Clicks + "</td><td>" + data[0][i].Impressions + "</td><td>" + data[1][i].Impressions + "</td><td>" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td>" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td>" + data[0][i].Position.toFixed(1) + "</td><td>" + data[1][i].Position.toFixed(1) + "</td></tr>";
+                                var Typename = data[0][i].DeviceType == 1 ? "DESKTOP" : data[0][i].DeviceType == 2 ? "MOBILE" : data[0][i].DeviceType == 3 ? "TABLET" : null;
+                                row2 += "<tr><td>" + Typename + "</td><td class=\"Device_Clicks_1\">" + data[0][i].Clicks + "</td><td class=\"Device_Clicks_2\">" + data[1][i].Clicks + "</td><td class=\"Device_Impressions_1\">" + data[0][i].Impressions + "</td><td class=\"Device_Impressions_2\">" + data[1][i].Impressions + "</td><td class=\"Device_CTR_1\">" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td class=\"Device_CTR_2\">" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td class=\"Device_Position_1\">" + data[0][i].Position.toFixed(1) + "</td><td class=\"Device_Position_2\">" + data[1][i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#mytable6").append(row2);
                             $("#mytable6").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable6\');"> DOWNLOAD </button></td></tr>');
@@ -515,7 +548,8 @@ $(document).ready(function () {
                             //formData(data, 1);
                             $("#load").css("display", "none");
                             NProgress.done();
-                            $("#mytable6").css("display", "block");
+                            compareColumnHide(8, c3, "Device");
+                            $("#mytable6").css("display", "table");
                             $("#charts_comp").css("display", "block");
                         }
                     });
@@ -545,7 +579,7 @@ $(document).ready(function () {
                 if (startDate == $('#calStartDate').val() && endDate == $('#calEndDate').val()) {
                     $("#load").css("display", "none");
                     NProgress.done();
-                    $("#mytable3").css("display", "block");
+                    $("#mytable3").css("display", "table");
                     $("#charts").css("display", "block");
                 }
                 else {
@@ -561,15 +595,16 @@ $(document).ready(function () {
                                 row3 = "";
                                 $("#charts").css("display", "none");
                                 for (var i = data.length - 1; i >= 0 ; i--) {
-                                    row3 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "\",\"Date\")'><td class=\"column\">" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "</td><td class=\"column\">" + data[i].Clicks + "</td><td class=\"column\">" + data[i].Impressions + "</td><td class=\"column\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column\">" + data[i].Position.toFixed(1) + "</td></tr>";
+                                    row3 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "\",\"Date\")'><td class=\"column\">" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "</td><td class=\"column Date_Clicks\">" + data[i].Clicks + "</td><td class=\"column Date_Impressions\">" + data[i].Impressions + "</td><td class=\"column Date_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Date_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                                 }
                                 $("#tablebody3").html(row3);
                                 $("#tablebody3").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable3\');"> DOWNLOAD </button></td></tr>');
                                 formData(data, 1);
                                 $("#load").css("display", "none");
                                 NProgress.done();
+                                columnHide(4, c1, "Date");
                                 $("#charts").css("display", "block");
-                                $("#mytable3").css("display", "block");
+                                $("#mytable3").css("display", "table");
                                 highlight("mytable3");
 
                             }
@@ -638,7 +673,7 @@ $(document).ready(function () {
                             row3 = "";
                             $("#charts").css("display", "none");
                             for (var i = data.length - 1; i >= 0 ; i--) {
-                                row3 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "\",\"Date\")'><td class=\"column\">" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "</td><td class=\"column\">" + data[i].Clicks + "</td><td class=\"column\">" + data[i].Impressions + "</td><td class=\"column\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column\">" + data[i].Position.toFixed(1) + "</td></tr>";
+                                row3 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "\",\"Date\")'><td class=\"column\">" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "</td><td class=\"column Date_Clicks\">" + data[i].Clicks + "</td><td class=\"column Date_Impressions\">" + data[i].Impressions + "</td><td class=\"column Date_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Date_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#tablebody3").html(row3);
                             $("#tablebody3").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable3\');"> DOWNLOAD </button></td></tr>');
@@ -647,8 +682,9 @@ $(document).ready(function () {
                             //});
                             $("#load").css("display", "none");
                             NProgress.done();
+                            columnHide(4, c1, "Date");
                             $("#charts").css("display", "block");
-                            $("#mytable3").css("display", "block");
+                            $("#mytable3").css("display", "table");
                             highlight("mytable3");
                             formData(data, 0);
                         }
@@ -922,6 +958,7 @@ function eachRowComp(element, Type) {
     $("#eachRow").css("display", "none");
     $("#charts").css("display", "none");
 
+    var yu = 'http://localhost:8067/api/searchconsole/' + functionName + '?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&' + Type + '=' + element + '&domainID=' + parseInt(parameters[0]) + '&';
     $.ajax({
         type: 'GET',
         contenttype: 'application/json',
@@ -937,7 +974,7 @@ function eachRowComp(element, Type) {
             else {
                 fl = 3;
             }
-            for (var i = 2; i < 4; i++) {
+            for (var i = 0; i < 2; i++) {
                 var clickarray = new Array();
                 var Imparray = new Array();
                 var Ctrarray = new Array();
@@ -1148,7 +1185,7 @@ function chartMaker(categories, series, flag, XaxisLabel, Title) {
         $("#eachRow").css("display", "none");
         $("#charts_comp").css("display", "none");
         $("#eachRow_Comp").css("display", "none");
-        var c1 = Highcharts.chart('charts', {
+        c1 = Highcharts.chart('charts', {
             chart: {
                 type: 'line',
                 zoomType: 'xy'
@@ -1171,7 +1208,7 @@ function chartMaker(categories, series, flag, XaxisLabel, Title) {
                             if (this.visible == true) {
 
                                 var t = $("#" + this.name).index() + 1;
-                                $('td:nth-child(' + t + '),th:nth-child(' + t + ')').hide();
+                                $('td:nth-child(' + t + '),th:nth-child(' + t + ')').css("display","none");
                                 if (this.name == "Clicks") {
                                     flq++;
                                 }
@@ -1191,7 +1228,7 @@ function chartMaker(categories, series, flag, XaxisLabel, Title) {
                             }
                             else {
                                 var t = $("#" + this.name).index() + 1;
-                                $('td:nth-child(' + t + '),th:nth-child(' + t + ')').show();
+                                $('td:nth-child(' + t + '),th:nth-child(' + t + ')').css("display", "table");
                                 if (this.name == "Clicks") {
                                     flq--;
                                 }
@@ -1229,7 +1266,7 @@ function chartMaker(categories, series, flag, XaxisLabel, Title) {
         $("#charts").css("display", "none");
         $("#charts_comp").css("display", "none");
         $("#eachRow_Comp").css("display", "none");
-        var c2 = Highcharts.chart('eachRow', {
+         c2 = Highcharts.chart('eachRow', {
             chart: {
                 type: 'line',
                 zoomType: 'xy'
@@ -1310,7 +1347,7 @@ function chartMaker(categories, series, flag, XaxisLabel, Title) {
         $("#eachRow").css("display", "none");
         $("#charts").css("display", "none");
         $("#eachRow_Comp").css("display", "none");
-        var c3 = Highcharts.chart('charts_comp', {
+         c3 = Highcharts.chart('charts_comp', {
             chart: {
                 type: 'line',
                 zoomType: 'xy'
@@ -1412,7 +1449,7 @@ function chartMaker(categories, series, flag, XaxisLabel, Title) {
         $("#eachRow").css("display", "none");
         $("#charts").css("display", "none");
         $("#charts_comp").css("display", "none");
-        var c4 = Highcharts.chart('eachRow_Comp', {
+         c4 = Highcharts.chart('eachRow_Comp', {
             chart: {
                 type: 'line',
                 zoomType: 'xy'
@@ -1574,4 +1611,25 @@ function logginout() {
     //{
 
     //}
+}
+
+function columnHide(noOfColumns,chartType,columnNamePrefix)
+{
+    for (var b = 0; b < noOfColumns; b++) {
+        if (chartType.series[b].visible == false) {
+            //$('td:nth-child(#' + c1.series[b].name + '),th:nth-child(#' + c1.series[b].name + ')').hide();
+            $("." + columnNamePrefix + "_" + chartType.series[b].name).hide();
+        }
+    }
+}
+
+function compareColumnHide(noOfColumns, chartType, columnNamePrefix)
+{
+    for (var b = 0; b < noOfColumns; b++) {
+        if (chartType.series[b].visible == false) {
+            //$('td:nth-child(#' + c1.series[b].name + '),th:nth-child(#' + c1.series[b].name + ')').hide();
+            $("." + columnNamePrefix + "_" + chartType.series[b].name + "_1, #" + chartType.series[b].name + "_1").hide();
+            $("." + columnNamePrefix + "_" + chartType.series[b].name + "_2, #" + chartType.series[b].name + "_2").hide();
+        }
+    }
 }

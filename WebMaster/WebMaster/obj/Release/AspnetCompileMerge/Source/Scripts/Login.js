@@ -30,7 +30,7 @@ function Submit() {
         $("#invalid").css('display', 'none');
         localStorage['username'] = username;
         localStorage['password'] = password;
-        var fh =  'http://localhost:8067/api/searchconsole/LoginCheck?userName=' + username + '&password=' + password + '&';
+        var fh = 'http://localhost:8067/api/searchconsole/LoginCheck?userName=' + username + '&password=' + password + '&';
 
         $.ajax({
             type: 'GET',
