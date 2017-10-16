@@ -1208,7 +1208,7 @@ function chartMaker(categories, series, flag, XaxisLabel, Title) {
                             if (this.visible == true) {
 
                                 var t = $("#" + this.name).index() + 1;
-                                $('td:nth-child(' + t + '),th:nth-child(' + t + ')').css("display","none");
+                                $('td:nth-child(' + t + '),th:nth-child(' + t + ')').hide();
                                 if (this.name == "Clicks") {
                                     flq++;
                                 }
@@ -1228,7 +1228,7 @@ function chartMaker(categories, series, flag, XaxisLabel, Title) {
                             }
                             else {
                                 var t = $("#" + this.name).index() + 1;
-                                $('td:nth-child(' + t + '),th:nth-child(' + t + ')').css("display", "table");
+                                $('td:nth-child(' + t + '),th:nth-child(' + t + ')').show();
                                 if (this.name == "Clicks") {
                                     flq--;
                                 }
