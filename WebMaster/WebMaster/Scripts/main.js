@@ -42,7 +42,7 @@ $(document).ready(function () {
     parameters[1] = previousPageUrl.substring(previousPageUrl.lastIndexOf("=") + 1, previousPageUrl.lastIndexOf("&"));
     //if (localStorage['isLoggedOut'] == "true" || localStorage['isLoggedOut'] == null || localStorage['domain'] != parameters[0])
     if (localStorage['isLoggedOut'] == "true" || localStorage['isLoggedOut'] == null) {
-        window.location = "Login.html?Result=LoginRequired&";
+        window.location = "index.html?Result=LoginRequired&";
     }
     else {
         $("#mainBody").css("cursor", "wait");
@@ -124,6 +124,7 @@ $(document).ready(function () {
         $("#hover").click(function () {
             $(this).fadeOut();
             $("#popup").fadeOut();
+            $("#hover").fadeOut();
         });
 
         // close on click to X
@@ -156,7 +157,7 @@ $(document).ready(function () {
         var dateChecked = $('#radioDates').val($(this).is(':checked')).val();
 
         $('#radioQueries').change(function () {
-            $("#load").css("display", "block");
+            //$("#load").css("display", "block");
             NProgress.start();
             $("#mytable").css("display", "none");
             $("#mytable1").css("display", "none");
@@ -788,6 +789,7 @@ $(document).ready(function () {
             $('#enddate1').val(C1endDate);
             $('#startdate2').val(C2startDate);
             $('#enddate2').val(C2endDate);
+            $('.dropdown-menu').css("display", "none");
         });
         $("#4").click(function () {
             $("#load").css("display", "block");
@@ -802,10 +804,13 @@ $(document).ready(function () {
             $('#enddate1').val(C1endDate);
             $('#startdate2').val(C2startDate);
             $('#enddate2').val(C2endDate);
+            $('.dropdown-menu').css("display", "none");
 
         });
         $("#5").click(function () {
+            $("#hover").css("display", "block");
             $("#popup").css("display", "block");
+            $('.dropdown-menu').css("display", "none");
         });
 
         $("#customComp").click(function () {
@@ -1632,4 +1637,13 @@ function compareColumnHide(noOfColumns, chartType, columnNamePrefix)
             $("." + columnNamePrefix + "_" + chartType.series[b].name + "_2, #" + chartType.series[b].name + "_2").hide();
         }
     }
+}
+
+function highlightthis(id)
+{
+    $('#' + id).addClass("bgHighlight");
+}
+
+function blurthis(id) {
+    $('#' + id).removeClass("bgHighlight");
 }

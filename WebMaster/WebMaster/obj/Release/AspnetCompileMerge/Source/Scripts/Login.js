@@ -48,9 +48,10 @@ function Submit() {
                         validDomains.domains.push({"id":data[i], "status" : 'ok'});
                     }
                     localStorage['domain'] = JSON.stringify(validDomains);
-                    //window.location = "HtmlPage1.html?Domain=" + data + '&User=' + username + '&';
-                    //window.location = "HtmlPage1.html?Domain=1&User=' + username + '&";
-                    window.location = "Domains.html?User=" + username + "&";
+                    ////window.location = "HtmlPage1.html?Domain=" + data + '&User=' + username + '&';
+                    ////window.location = "HtmlPage1.html?Domain=1&User=' + username + '&";
+                    // window.location = "Domains.html?User=" + username + "&";
+                    window.location = "yourDomains.html?User=" + username + "&";
                 }
                 else {
                     $("#invalid").css('display', 'block');
@@ -69,4 +70,8 @@ function Submit() {
         $("#invalid").css('display', 'block');
         
     }
+}
+function homeRedirect()
+{
+    window.location = "index.html";
 }
