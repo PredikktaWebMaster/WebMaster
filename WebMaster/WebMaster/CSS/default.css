@@ -10,10 +10,10 @@ html, body {
 body {
 	margin: 0px;
 	padding: 0px;
-	background: url(../images/wrapper-bg.png) repeat;
+	/*background: url(../images/wrapper-bg.png) repeat;*/
 	font-family: 'Arvo', serif;
 	font-size: 14px;
-	color: #8E9597;
+	color: #181817;
 }
 
 h1, h2, h3 {
@@ -73,15 +73,15 @@ hr {
 	/*min-height: 100%;
 	height: auto !important;
 	height: 100%;*/
-	background: url(../images/wrapper-content-gradient.png) repeat-y center top;
+	/*background: url(../images/wrapper-content-gradient.png) repeat-y center top;*/
 }
 
 #wrapper-bgshadow {
-    background: url(../images/bg-shadow.png) repeat-x left top;
+    /*background: url(../images/bg-shadow.png) repeat-x left top;*/
 }
 
 #wrapper {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	width: 1011px;
 	margin: 0px auto;
     padding-bottom:5px;
@@ -157,7 +157,7 @@ hr {
 	width: 1010px;
 	height: 110px;
 	margin: -10px auto 0px auto;
-	background: url(../images/menu-wrapper-bg.png) no-repeat left top;
+	/*background: url(../images/menu-wrapper-bg.png) no-repeat left top;*/
 }
 
 #menu {
@@ -320,8 +320,8 @@ hr {
 }
 
 #sidebar ul {
-	margin-top: 10px;
-    margin-left:74px;
+	margin-top: 17px;
+    margin-left:-66px;
 	padding: 9px 0px;
 	list-style: none;
 }

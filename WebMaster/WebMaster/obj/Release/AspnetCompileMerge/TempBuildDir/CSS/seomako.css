@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body{
+    background: #fff;
+    margin: 0px;
+    padding: 0px;
+}
+.menu-left ul li {
+    list-style: none;
+    display: inline;
+    padding: 5px;
+}
+.menu-left {
+    float: left;
+    width: 50%;
+}
+.site-logo {
+    float: left;
+    width: 50%;
+}
+.site-logo a{
+    color:#fff;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+.site_header {
+    min-height: 64px;
+    max-width: 1200px;
+    margin: 0 auto;
+   
+}
+.menu-left ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+.top-header-nav {
+    float: right;
+}
+nav{ background: url("http://seomako.predikktadev.com/wp-content/uploads/2017/11/slider-2.jpeg") no-repeat fixed center; 
+    background-size:cover;}
+.top-header {
+        background-color: rgba(31, 63, 102, 0.7);
+        padding-top: 16px;
+}
+/**content section css goes here**/
+.text-center{
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+.content.wrapper {
+    
+    margin: 0px;
+    padding: 61px 0px 180px 0px;
+    background-position: center;
+    
+}
+.content-wrapper-opacity{
+   
+    
+    margin: 0px;
+    padding: 0px;
+}
+/**footer css goes here**/
+.footer{
+    width:100%;
+    height:70px;
+    background-color: #313b48;
+    padding: 20px 0 4px;
+    position:fixed;
+    bottom: 0px;
+}
+.footer p{
+    color:#fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footerP{
+    width:100%;
+    height:70px;
+    background-color: #313b48;
+    padding: 20px 0 4px;
+    position:fixed;
+    bottom: 0px;
+}
+.footerP p{
+    color:#fff;
+    font-family: 'Montserrat', sans-serif;
+}
+/** login form css **/
+
+
+.login-page {
+  width: 360px;
+  padding:  0px;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+    font-family: 'Montserrat', sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4896E0;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #fff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  border-radius: 0px;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #7FBCF2;
+  color:#fff;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.message1{
+    display:none;
+}
+
+label {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+}
+#remember_me {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    color: #313b48;
+}
+.form .register-form {
+  display: none;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
+
+.vc_single_image-wrapper.vc_box_border_grey {
+    text-align: center;
+    margin-bottom: 23px;
+}
+.website-list li{
+    list-style-type: none;
+    padding: 12px 0px;
+    text-align: center;
+    background: #4896E0;
+    margin-bottom: 12px;
+    color: #fff;
+}
+.website-list li a{
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+}
+.website-list li span img{
+    width:20px;
+    vertical-align: middle;
+    float: right;
+    margin-right: 23px;
+}
+/** dashboard css **/
+.dashboard{
+    width:60%; margin:0px auto;
+}
+th, td {
+    font-size: 14px;
+    text-align: left;
+}
+.chart-container{
+    padding: 0px;
+    background: #4896E0;
+    border: 1px solid #ccc;
+
+}
+table.dataTable.no-footer{
+    border:1px solid #ccc;
+}
+select {
+    border: 1px solid #ccc;
+}
+th {
+    text-transform: uppercase;
+    font-weight: bold;
+    background: #ccc;
+}
+table.dataTable thead th, table.dataTable thead td {
+    padding: 10px 18px;
+    border-bottom: 1px solid #ccc;
+}
+.jumbotron .h1, .jumbotron h1 {
+    font-size: 43px;
+}
+.jumbotron.jumbotron-fluid .container {
+    padding: 0px;
+}
+.jumbotron.jumbotron-fluid .container span{
+    padding: 0px 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+.jumbotron p{
+    border-top: 1px solid #fff;
+    padding-top: 12px;
+    font-family: 'Montserrat', sans-serif;
+}
+.jumbotron {
+    padding-top: 29px;
+    padding-bottom: 9px;
+}

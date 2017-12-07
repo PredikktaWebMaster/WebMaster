@@ -42,7 +42,7 @@ $(document).ready(function () {
     parameters[1] = previousPageUrl.substring(previousPageUrl.lastIndexOf("=") + 1, previousPageUrl.lastIndexOf("&"));
     //if (localStorage['isLoggedOut'] == "true" || localStorage['isLoggedOut'] == null || localStorage['domain'] != parameters[0])
     if (localStorage['isLoggedOut'] == "true" || localStorage['isLoggedOut'] == null) {
-        window.location = "index.html?Result=LoginRequired&";
+        window.location = "login.html?Result=LoginRequired&";
     }
     else {
         $("#mainBody").css("cursor", "wait");
@@ -61,7 +61,7 @@ $(document).ready(function () {
             contenttype: 'application/json',
             datatype: 'json',
             crossDomain: true,
-            url: 'http://localhost:8067/api/searchconsole/GetDates?domainID=' + parseInt(parameters[0]) + '&',
+            url: 'http://localhost:61647/api/searchconsole/GetDates?domainID=' + parseInt(parameters[0]) + '&',
             success: function (data) {
                 if (data[0] != null || data[1] != null) {
                     $("#mainBody").css("cursor", "default");
@@ -86,7 +86,7 @@ $(document).ready(function () {
                         type: 'GET',
                         contenttype: 'application/json',
                         datatype: 'json',
-                        url: 'http://localhost:8067/api/searchconsole/SearchByDate?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&',
+                        url: 'http://localhost:61647/api/searchconsole/SearchByDate?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&',
                         success: function (data) {
                             row3 = "";
                             $("#charts").css("display", "none");
@@ -188,7 +188,7 @@ $(document).ready(function () {
                             type: 'GET',
                             contenttype: 'application/json',
                             datatype: 'json',
-                            url: 'http://localhost:8067/api/searchconsole/SearchByQuery?startDate=' + startDate + '&endDate=' + endDate + '&query=&domainID=' + parseInt(parameters[0]) + '&',
+                            url: 'http://localhost:61647/api/searchconsole/SearchByQuery?startDate=' + startDate + '&endDate=' + endDate + '&query=&domainID=' + parseInt(parameters[0]) + '&',
                             success: function (data) {
                                 row = "";
                                 $("#tablebody").html("");
@@ -237,7 +237,7 @@ $(document).ready(function () {
                         type: 'GET',
                         contenttype: 'application/json',
                         datatype: 'json',
-                        url: 'http://localhost:8067/api/searchconsole/Comp_SearchByQuery?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&query=&domainID=' + parseInt(parameters[0]) + '&',
+                        url: 'http://localhost:61647/api/searchconsole/Comp_SearchByQuery?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&query=&domainID=' + parseInt(parameters[0]) + '&',
                         success: function (data) {
                             $("#mytable4").html("");
                             row_head = "";
@@ -255,7 +255,7 @@ $(document).ready(function () {
                             //  "</tr>" +
                             //  "</thead>";
                             row_head = "<thead>" +
-                               " <tr>" +
+                               " <tr style='background-color:#4896E0'>" +
                               "<th>Queries</th>" +
                               "<th id='Clicks_1'>" + C1startDate.substr(C1startDate.indexOf('/') + 1, 2) + " " + months[new Date(C1startDate).getMonth()] + " - " + C1endDate.substr(C1endDate.indexOf('/') + 1, 2) + " " + months[new Date(C1endDate).getMonth()] + " Clicks</th>" +
                               "<th id='Clicks_2'>" + C2startDate.substr(C2startDate.indexOf('/') + 1, 2) + " " + months[new Date(C2startDate).getMonth()] + " - " + C2endDate.substr(C2endDate.indexOf('/') + 1, 2) + " " + months[new Date(C2endDate).getMonth()] + " Clicks</th>" +
@@ -336,7 +336,7 @@ $(document).ready(function () {
                             type: 'GET',
                             contenttype: 'application/json',
                             datatype: 'json',
-                            url: 'http://localhost:8067/api/searchconsole/SearchByPage?startDate=' + startDate + '&endDate=' + endDate + '&page=&domainID=' + parseInt(parameters[0]) + '&',
+                            url: 'http://localhost:61647/api/searchconsole/SearchByPage?startDate=' + startDate + '&endDate=' + endDate + '&page=&domainID=' + parseInt(parameters[0]) + '&',
                             success: function (data) {
                                 row1 = "";
                                 for (var i = 0; i < data.length; i++) {
@@ -377,7 +377,7 @@ $(document).ready(function () {
                         type: 'GET',
                         contenttype: 'application/json',
                         datatype: 'json',
-                        url: 'http://localhost:8067/api/searchconsole/Comp_SearchByPage?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&page=&domainID=' + parseInt(parameters[0]) + '&',
+                        url: 'http://localhost:61647/api/searchconsole/Comp_SearchByPage?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&page=&domainID=' + parseInt(parameters[0]) + '&',
                         success: function (data) {
                             $("#mytable5").html("");
                             row_head = "";
@@ -396,7 +396,7 @@ $(document).ready(function () {
                             //  "</thead>";
 
                             row_head = "<thead>" +
-                             " <tr>" +
+                             " <tr style='background-color:#4896E0'>" +
                             "<th>Queries</th>" +
                             "<th id='Clicks_1'>" + C1startDate.substr(C1startDate.indexOf('/') + 1, 2) + " " + months[new Date(C1startDate).getMonth()] + " - " + C1endDate.substr(C1endDate.indexOf('/') + 1, 2) + " " + months[new Date(C1endDate).getMonth()] + " Clicks</th>" +
                             "<th id='Clicks_2'>" + C2startDate.substr(C2startDate.indexOf('/') + 1, 2) + " " + months[new Date(C2startDate).getMonth()] + " - " + C2endDate.substr(C2endDate.indexOf('/') + 1, 2) + " " + months[new Date(C2endDate).getMonth()] + " Clicks</th>" +
@@ -468,7 +468,7 @@ $(document).ready(function () {
                             type: 'GET',
                             contenttype: 'application/json',
                             datatype: 'json',
-                            url: 'http://localhost:8067/api/searchconsole/SearchByDevice?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&',
+                            url: 'http://localhost:61647/api/searchconsole/SearchByDevice?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&',
                             success: function (data) {
                                 row2 = "";
                                 for (var i = 0; i < data.length; i++) {
@@ -502,7 +502,7 @@ $(document).ready(function () {
                         type: 'GET',
                         contenttype: 'application/json',
                         datatype: 'json',
-                        url: 'http://localhost:8067/api/searchconsole/Comp_SearchByDevice?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&domainID=' + parseInt(parameters[0]) + '&',
+                        url: 'http://localhost:61647/api/searchconsole/Comp_SearchByDevice?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&domainID=' + parseInt(parameters[0]) + '&',
                         success: function (data) {
                             $("#mytable6").html("");
                             row_head = "";
@@ -521,7 +521,7 @@ $(document).ready(function () {
                             //  "</thead>";
 
                             row_head = "<thead>" +
-                             " <tr>" +
+                             " <tr style='background-color:#4896E0'>" +
                             "<th>Devices</th>" +
                             "<th id='Clicks_1'>" + C1startDate.substr(C1startDate.indexOf('/') + 1, 2) + " " + months[new Date(C1startDate).getMonth()] + " - " + C1endDate.substr(C1endDate.indexOf('/') + 1, 2) + " " + months[new Date(C1endDate).getMonth()] + " Clicks</th>" +
                             "<th id='Clicks_2'>" + C2startDate.substr(C2startDate.indexOf('/') + 1, 2) + " " + months[new Date(C2startDate).getMonth()] + " - " + C2endDate.substr(C2endDate.indexOf('/') + 1, 2) + " " + months[new Date(C2endDate).getMonth()] + " Clicks</th>" +
@@ -591,7 +591,7 @@ $(document).ready(function () {
                             type: 'GET',
                             contenttype: 'application/json',
                             datatype: 'json',
-                            url: 'http://localhost:8067/api/searchconsole/SearchByDate?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&',
+                            url: 'http://localhost:61647/api/searchconsole/SearchByDate?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&',
                             success: function (data) {
                                 row3 = "";
                                 $("#charts").css("display", "none");
@@ -664,7 +664,7 @@ $(document).ready(function () {
                     $("#charts_comp").css("display", "none");
                     $("#eachRow_Comp").css("display", "none");
 
-                    var url = 'http://localhost:8067/api/searchconsole/SearchByDate?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&';
+                    var url = 'http://localhost:61647/api/searchconsole/SearchByDate?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&';
                     $.ajax({
                         type: 'GET',
                         contenttype: 'application/json',
@@ -870,7 +870,7 @@ function eachRow(element, Type) {
         type: 'GET',
         contenttype: 'application/json',
         datatype: 'json',
-        url: 'http://localhost:8067/api/searchconsole/' + functionName + '?startDate=' + startDate + '&endDate=' + endDate + '&' + Type + '=' + element + '&domainID=' + parseInt(parameters[0]) + '&',
+        url: 'http://localhost:61647/api/searchconsole/' + functionName + '?startDate=' + startDate + '&endDate=' + endDate + '&' + Type + '=' + element + '&domainID=' + parseInt(parameters[0]) + '&',
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 categories.push("");
@@ -963,7 +963,7 @@ function eachRowComp(element, Type) {
     $("#eachRow").css("display", "none");
     $("#charts").css("display", "none");
 
-    var yu = 'http://localhost:8067/api/searchconsole/' + functionName + '?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&' + Type + '=' + element + '&domainID=' + parseInt(parameters[0]) + '&';
+    var yu = 'http://localhost:61647/api/searchconsole/' + functionName + '?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&' + Type + '=' + element + '&domainID=' + parseInt(parameters[0]) + '&';
     $.ajax({
         type: 'GET',
         contenttype: 'application/json',
@@ -1089,7 +1089,7 @@ function comparisondata(startDate, endDate, s2, e2) {
         $("#notifier").css("display", "none");
         //$("#load").css("display", "block");
         //NProgress.start();
-        var url = 'http://localhost:8067/api/searchconsole/Comp_SearchByDate?startDate1=' + startDate + '&endDate1=' + endDate + '&startDate2=' + s2 + '&endDate2=' + e2 + '&domainID=' + parseInt(parameters[0]) + '&';
+        var url = 'http://localhost:61647/api/searchconsole/Comp_SearchByDate?startDate1=' + startDate + '&endDate1=' + endDate + '&startDate2=' + s2 + '&endDate2=' + e2 + '&domainID=' + parseInt(parameters[0]) + '&';
         $.ajax({
             type: 'GET',
             contenttype: 'application/json',

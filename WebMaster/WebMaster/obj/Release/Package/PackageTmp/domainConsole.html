@@ -10,8 +10,10 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <!--<script src="Scripts/jquery-1.8.2.min.js" type="text/javascript"></script>-->
-    <script src="Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!--<script src="Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>-->
     <script src="Scripts/jquery-ui.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <script src="Scripts/m-pagetransition.js" type="text/javascript"></script>
     <script src="Scripts/highcharts.js" type="text/javascript"></script>
     <script src="Scripts/exporting.js" type="text/javascript"></script>
@@ -22,16 +24,27 @@
     <script src="Scripts/main.js"></script>
     <script>
         $(document).ready(function () {
-            $('.m-pagetransition').mPageTransition();
+            //$('.m-pagetransition').mPageTransition();
+            $('#myTable').dataTable();
+            $('#myTable1').dataTable();
+            $('#myTable2').dataTable();
+            $('#myTable3').dataTable();
+            $('#myTable4').dataTable();
+            $('#myTable5').dataTable();
+            $('#myTable6').dataTable();
+            $('#myTable7').dataTable();
         });
     </script>
     <!--<script src="Scripts/jquery.table.hpaging.js" type="text/javascript"></script>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" /></style>
+    <link href="CSS/seomako.css" rel="stylesheet" />
     <link href="CSS/bootstrap.min.css" rel="stylesheet" />
     <link href="CSS/loader.css" rel="stylesheet" />
     <link href="CSS/jquery-ui.css" rel="stylesheet" />
     <link href="CSS/nprogress.css" rel="stylesheet" />
     <link href="CSS/default.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="CSS/m-pagetransition-styles.css" type="text/css" rel="stylesheet" />
+    <!--<link href="CSS/m-pagetransition-styles.css" type="text/css" rel="stylesheet" />-->
     <style>
         form {
             border: 3px solid #f1f1f1;
@@ -119,48 +132,64 @@
         }
     </style>
 </head>
-<body class="m-pagetransition">
+<body>
+       <nav>
+        <div class="top-header">
+            <div class="site_header">
+                <div class="site-logo">
+                    <h3><a href="SEOMako.html">SeoMako</a></h3>
+                </div>
+                <div class="menu-left">
+                <ul class="top-header-nav">
+                    <li><a class="active" href="SEOMako.html">Home</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="login.html" onclick="logginout()">Logout</a></li>
+                </ul>  
+                </div>     
+            </div>
+        </div>
+    </nav>
     <div id="wrapper-gradiant">
         <div id="wrapper-bgshadow">
             <div id="wrapper">
-                <div id="header1">
+                <!--<div id="header1">
                     <div id="logo">
                         <h1><a href="#">SeoMako<span></span></a></h1>
                         <p>By Predikkta</p>
                     </div>
-                </div>
+                </div>-->
                 <div id="menu-wrapper">
                     <div id="menu">
                         <ul>
                             <li>
                                 <label for="radioQueries">
                                     <input type="radio" name="radioFilters" value="Query" id="radioQueries" />
-                                    Query
+                                    Query Based
                                 </label>
                             </li>
 
                             <li>
                                 <label for="radioPages">
                                     <input type="radio" name="radioFilters" value="Page" id="radioPages" />
-                                    Page
+                                    Page Based Analytics
                                 </label>
                             </li>
 
                             <li>
                                 <label for="radioDevices">
                                     <input type="radio" name="radioFilters" value="Device" id="radioDevices" />
-                                    Device
+                                    Device Based Results
                                 </label>
                             </li>
                             <li>
                                 <label for="radioDates">
                                     <input type="radio" name="radioFilters" value="Date" id="radioDates" checked="checked" />
-                                    Date
+                                    Show By Date
                                 </label>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="index.html" style="position:absolute;margin-left:291px;margin-top:-19px" onclick="logginout()"><img src="images/012_power-512.png" width="30" height="30" alt="" /></a>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>
@@ -183,88 +212,96 @@
                         <ul>
                             <li>
                                 <div id="TC1" style="display:none">
-                                    <label id="Title_Click1"></label>
-                                    <div style="height :50px; width:100px;background-color:#6BB26B;margin-left:10px">
-                                        <a id="TotalClicks1" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
-                                        </a>
+                                  
+                                    <div style="height :50px; width:100px;background-color:#6BB26B;margin-left:10px;margin-top:10px">
+                                        <span id="TotalClicks1" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
+                                        </span>
                                     </div>
-                                    <div style="width: 100px;height: 50px;border-bottom: 5px dashed;border-color:#2C732C;margin-left:10px"></div>
+                                    <label id="Title_Click1"></label>
+                                    <div style="width: 100px;height: 6px;border-bottom: 5px dashed;border-color:#2C732C;margin-left:10px"></div>
                                 </div>
 
                             </li>
                             <li>
                                 <div id="TC" style="display:inline-block">
-                                    <label id="Title_Click"></label>
-                                    <div style="height :50px; width:100px;background-color:#6BB26B;margin-left:10px">
-                                        <a id="TotalClicks" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
-                                        </a>
+                                  
+                                    <div style="height :50px; width:100px;background-color:#6BB26B;margin-left:10px;margin-top:10px">
+                                        <span id="TotalClicks" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
+                                        </span>
                                     </div>
-                                    <div style="width: 100px;height: 50px;border-bottom: 5px solid;border-color:#2C732C;margin-left:10px"></div>
+                                    <label id="Title_Click"></label>
+                                    <div style="width: 100px;height: 6px;border-bottom: 5px solid;border-color:#2C732C;margin-left:10px"></div>
                                 </div>
 
                             </li>
                             <li>
                                 <div id="TI1" style="display:none">
-                                    <label id="Title_Impression1"></label>
-                                    <div style="height :50px; width:100px;background-color:#5EBCEB;margin-left:10px">
-                                        <a id="TotalImpression1" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
-                                        </a>
+                                    
+                                    <div style="height :50px; width:100px;background-color:#5EBCEB;margin-left:10px;margin-top:10px">
+                                        <span id="TotalImpression1" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
+                                        </span>
                                     </div>
-                                    <div style="width: 100px;height: 50px;border-bottom: 5px dashed;border-color:#10A3EE;margin-left:10px"></div>
+                                    <label id="Title_Impression1"></label>
+                                    <div style="width: 100px;height: 6px;border-bottom: 5px dashed;border-color:#10A3EE;margin-left:10px"></div>
                                 </div>
 
                             </li>
                             <li>
                                 <div id="TI" style="display:inline-block">
-                                    <label id="Title_Impression"></label>
-                                    <div style="height :50px; width:100px;background-color:#5EBCEB;margin-left:10px">
-                                        <a id="TotalImpression" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
-                                        </a>
+                                   
+                                    <div style="height :50px; width:100px;background-color:#5EBCEB;margin-left:10px;margin-top:10px">
+                                        <span id="TotalImpression" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
+                                        </span>
                                     </div>
-                                    <div style="width: 100px;height: 50px;border-bottom: 5px solid;border-color:#10A3EE;margin-left:10px"></div>
+                                    <label id="Title_Impression"></label>
+                                    <div style="width: 100px;height: 6px;border-bottom: 5px solid;border-color:#10A3EE;margin-left:10px"></div>
                                 </div>
 
                             </li>
                             <li>
                                 <div id="AC1" style="display:none">
-                                    <label id="Title_Ctr1"></label>
-                                    <div style="height :50px; width:100px;background-color:#E4C570;margin-left:10px">
-                                        <a id="AvgCTR1" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
-                                        </a>
+                                   
+                                    <div style="height :50px; width:100px;background-color:#E4C570;margin-left:10px;margin-top:10px">
+                                        <span id="AvgCTR1" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
+                                        </span>
                                     </div>
-                                    <div style="width: 100px;height: 50px;border-bottom: 5px dashed;border-color:#EEB410;margin-left:10px"></div>
+                                    <label id="Title_Ctr1"></label>
+                                    <div style="width: 100px;height: 6px;border-bottom: 5px dashed;border-color:#EEB410;margin-left:10px"></div>
                                 </div>
 
                             </li>
                             <li>
                                 <div id="AC" style="display:inline-block">
-                                    <label id="Title_Ctr"></label>
-                                    <div style="height :50px; width:100px;background-color:#E4C570;margin-left:10px">
-                                        <a id="AvgCTR" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
-                                        </a>
+                                    
+                                    <div style="height :50px; width:100px;background-color:#E4C570;margin-left:10px;margin-top:10px">
+                                        <span id="AvgCTR" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
+                                        </span>
                                     </div>
-                                    <div style="width: 100px;height: 50px;border-bottom: 5px solid;border-color:#EEB410;margin-left:10px"></div>
+                                    <label id="Title_Ctr"></label>
+                                    <div style="width: 100px;height: 6px;border-bottom: 5px solid;border-color:#EEB410;margin-left:10px"></div>
                                 </div>
 
                             </li>
                             <li>
                                 <div id="AP1" style="display:none">
-                                    <label id="Title_Position1"></label>
-                                    <div style="height :50px; width:100px;background-color:#D87A70;margin-left:10px">
-                                        <a id="AvgPosition1" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
-                                        </a>
+                                    
+                                    <div style="height :50px; width:100px;background-color:#D87A70;margin-left:10px;margin-top:10px">
+                                        <span id="AvgPosition1" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
+                                        </span>
                                     </div>
-                                    <div style="width: 100px;height: 50px;border-bottom: 5px dashed;border-color:#E06255;margin-left:10px"></div>
+                                    <label id="Title_Position1"></label>
+                                    <div style="width: 100px;height: 6px;border-bottom: 5px dashed;border-color:#E06255;margin-left:10px"></div>
                                 </div>
                             </li>
                             <li>
                                 <div id="AP" style="display:inline-block">
-                                    <label id="Title_Position"></label>
-                                    <div style="height :50px; width:100px;background-color:#D87A70;margin-left:10px">
-                                        <a id="AvgPosition" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
-                                        </a>
+                                   
+                                    <div style="height :50px; width:100px;background-color:#D87A70;margin-left:10px;margin-top:10px">
+                                        <span id="AvgPosition" class="userLink" target="_blank" style="width: 100px;height: 50px;display: table-cell;vertical-align:middle;text-align:center;color:black;text-decoration: none;">
+                                        </span>
                                     </div>
-                                    <div style="width: 100px;height: 50px;border-bottom: 5px solid;border-color:#E06255;margin-left:10px"></div>
+                                    <label id="Title_Position"></label>
+                                    <div style="width: 100px;height: 6px;border-bottom: 5px solid;border-color:#E06255;margin-left:10px"></div>
                                 </div>
                             </li>
                         </ul>
@@ -292,11 +329,11 @@
                             </div>
 
                             <div style="padding-bottom: 30px">
-                                <input class="btn btn-block btn-success" type="button" id="btnSearch" value="Search" style="width:164px;position:absolute;margin-top:118px;margin-left:0px" />
+                                <input class="btn btn-block btn-success" type="button" id="btnSearch" value="Filter Results" style="width:164px;position:absolute;margin-top:118px;margin-left:0px" />
                             </div>
                             <ul class="nav" style="display:inline-block;cursor:pointer">
-                                <li class="button-dropdown" style="margin-top:-120px">
-                                    <span onclick="javascript:void(0)" class="dropdown-toggle dd-button" style="margin-left:77px">
+                                <li class="button-dropdown" style="margin-top:-29px;">
+                                    <span onclick="javascript:void(0)" class="dropdown-toggle dd-button" style="margin-top:-14px;position:absolute;margin-left:-66px">
                                         COMPARE
                                     </span>
                                     <ul class="dropdown-menu">
@@ -330,72 +367,72 @@
             </div>
         </div>
     </div>
-    <div class="container" style="display:inline-block">
+    <div  style="display:inline-block">
 
         <div></div>
         <!--<div id="load" class="loader"></div>-->
-        <div id="charts" style="display:block;width:100%;height:400px"></div>
-        <div id="eachRow" style="display:none;width:1303px;height:400px"></div>
-        <div id="eachRow_Comp" style="display:none;width:1303px;height:400px"></div>
-        <div id="charts_comp" style="display:none;width:1303px;height:400px"></div>
+        <div id="charts" style="display:block;width:100%;height:400px;margin-top:32px"></div>
+        <div id="eachRow" style="display:none;width:1303px;height:400px;margin-top:32px"></div>
+        <div id="eachRow_Comp" style="display:none;width:1303px;height:400px;margin-top:32px;margin-left:250px"></div>
+        <div id="charts_comp" style="display:none;width:1303px;height:400px;margin-top:32px;margin-left:250px"></div>
 
-        <div id="charts_pages" style="display:none"></div>
-        <div id="charts_devices" style="display:none"></div>
-        <div id="charts_date" style="display:none"></div>
+        <div id="charts_pages" style="display:none;margin-top:32px"></div>
+        <div id="charts_devices" style="display:none;margin-top:32px"></div>
+        <div id="charts_date" style="display:none;margin-top:32px"></div>
         <div id="notifier" style="display:none;"><b>Table omitted as it contains no additional information</b></div>
         <div>
-            <table id="mytable" class="table" style="display:none">
+            <table id="mytable" class="table table-striped" style="display:none">
                 <thead>
-                    <tr>
-                        <th id="Query">Queries</th>
-                        <th id="Clicks">Clicks</th>
-                        <th id="Impressions">Impressions</th>
-                        <th id="CTR">CTR</th>
-                        <th id="Position">Position</th>
+                    <tr style="background-color:#4896E0">
+                        <td id="Query">Queries</td>
+                        <td id="Clicks">Clicks</td>
+                        <td id="Impressions">Impressions</td>
+                        <td id="CTR">CTR</td>
+                        <td id="Position">Position</td>
                     </tr>
                 </thead>
                 <tbody id="tablebody"></tbody>
             </table>
-            <table id="mytable1" class="table" style="display:none">
+            <table id="mytable1" class="table table-striped" style="display:none">
                 <thead>
-                    <tr>
-                        <th>Pages</th>
-                        <th id="Clicks">Clicks</th>
-                        <th id="Impressions">Impressions</th>
-                        <th id="CTR">CTR</th>
-                        <th id="Position">Position</th>
+                    <tr style="background-color:#4896E0">
+                        <td>Pages</td>
+                        <td id="Clicks">Clicks</td>
+                        <td id="Impressions">Impressions</td>
+                        <td id="CTR">CTR</td>
+                        <td id="Position">Position</td>
                     </tr>
                 </thead>
                 <tbody id="tablebody1"></tbody>
             </table>
-            <table id="mytable2" class="table" style="display:none">
+            <table id="mytable2" class="table table-striped" style="display:none">
                 <thead>
-                    <tr>
-                        <th>Devices</th>
-                        <th id="Clicks">Clicks</th>
-                        <th id="Impressions">Impressions</th>
-                        <th id="CTR">CTR</th>
-                        <th id="Position">Position</th>
+                    <tr style="background-color:#4896E0">
+                        <td>Devices</td>
+                        <td id="Clicks">Clicks</td>
+                        <td id="Impressions">Impressions</td>
+                        <td id="CTR">CTR</td>
+                        <td id="Position">Position</td>
                     </tr>
                 </thead>
                 <tbody id="tablebody2"></tbody>
             </table>
-            <table id="mytable3" class="table" style="display:none;left:298px">
+            <table id="mytable3" class="table table-striped" style="display:none;left:298px">
                 <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th id="Clicks">Clicks</th>
-                        <th id="Impressions">Impressions</th>
-                        <th id="CTR">CTR</th>
-                        <th id="Position">Position</th>
+                    <tr style="background-color:#4896E0">
+                        <td>Date</td>
+                        <td id="Clicks">Clicks</td>
+                        <td id="Impressions">Impressions</td>
+                        <td id="CTR">CTR</td>
+                        <td id="Position">Position</td>
                     </tr>
                 </thead>
                 <tbody id="tablebody3"></tbody>
             </table>
-            <table id="mytable4" class="table" style="display:none"></table>
-            <table id="mytable5" class="table" style="display:none"></table>
-            <table id="mytable6" class="table" style="display:none"></table>
-            <table id="mytable7" class="table" style="display:none"></table>
+            <table id="mytable4" class="table table-striped" style="display:none"></table>
+            <table id="mytable5" class="table table-striped" style="display:none"></table>
+            <table id="mytable6" class="table table-striped" style="display:none"></table>
+            <table id="mytable7" class="table table-striped" style="display:none"></table>
         </div>
 
         <div id="hover" style="display:none">
@@ -434,8 +471,10 @@
         <iframe id="txtArea1" style="display:none"></iframe>
 
     </div>
-    <div id="footer">
-        <p>©2017 PREDIKKTA&nbsp;&nbsp;|&nbsp;&nbsp;All Rights Reserved</p>
+    <div class="footerP">
+        <p style="text-align:center;">
+            ©2017 PREDIKKTA | All Rights Reserved
+        </p>
     </div>
 </body>
 </html>
