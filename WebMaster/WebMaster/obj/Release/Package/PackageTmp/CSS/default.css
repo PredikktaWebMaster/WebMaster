@@ -198,8 +198,9 @@ hr {
 #page {
 	float: left;
 	width: 670px;
-	padding-top: 5px;
+	padding-top: 25px;
 	padding-left: 5px;
+    margin-left:156px;
 }
 
 #page .bgtop {
@@ -302,7 +303,7 @@ hr {
 /** SIDEBAR */
 
 #sidebar {
-	float: right;
+	/*float: right;*/
 	width: 330px;
 }
 
@@ -320,8 +321,8 @@ hr {
 }
 
 #sidebar ul {
-	margin-top: 17px;
-    margin-left:-66px;
+	margin-top: -20px;
+    margin-left:406px;
 	padding: 9px 0px;
 	list-style: none;
 }
