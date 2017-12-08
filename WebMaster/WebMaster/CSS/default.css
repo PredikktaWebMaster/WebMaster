@@ -321,7 +321,7 @@ hr {
 }
 
 #sidebar ul {
-	margin-top: -20px;
+	/*margin-top: -20px;*/
     margin-left:406px;
 	padding: 9px 0px;
 	list-style: none;
@@ -450,11 +450,11 @@ color: white;
 }
 
 .highLight {
-    background: #298A08;
+    background-color: #4896E0;
 }
 
 .bgHighlight{
-    background-color:#2F72A2;
+    background-color:#4896E0;
 }
 
 .menuItems{

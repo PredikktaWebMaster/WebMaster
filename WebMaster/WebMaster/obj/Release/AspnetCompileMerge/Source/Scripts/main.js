@@ -1,4 +1,5 @@
 ﻿var row;
+var tableAdder;
 var row1;
 var row2;
 var row3;
@@ -36,7 +37,6 @@ var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oc
 var previousPageUrl;
 var parameters = Array();
 $(document).ready(function () {
-
     previousPageUrl = window.location.href;
     parameters[0] = previousPageUrl.substring(previousPageUrl.indexOf("=") + 1, previousPageUrl.indexOf("&"));
     parameters[1] = previousPageUrl.substring(previousPageUrl.lastIndexOf("=") + 1, previousPageUrl.lastIndexOf("&"));
@@ -97,7 +97,7 @@ $(document).ready(function () {
                                 row3 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "\",\"Date\")'><td class=\"column\">" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "</td><td class=\"column\">" + data[i].Clicks + "</td><td class=\"column\">" + data[i].Impressions + "</td><td class=\"column\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column\">" + data[i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#tablebody3").html(row3);
-                            $("#tablebody3").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable3\');"> DOWNLOAD </button></td></tr>');
+                            //$("#tablebody3").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable3\');"> DOWNLOAD </button></td></tr>');
                             //$("#mytable3").hpaging({
                             //    "limit": 50
                             //});
@@ -105,9 +105,12 @@ $(document).ready(function () {
                             NProgress.done();
                             $("#charts_comp").css("display", "none");
                             $("#charts").css("display", "block");
-                            $("#charts").css("display", "block");
                             $("#mytable3").css("display", "table");
-                            highlight("mytable3")
+                            highlight("mytable3");
+                            $("#mytable3").dataTable();
+                            $('#mytable3').parents('div.dataTables_wrapper').first().show();
+                            $("#download").css("display", "block");
+                            localStorage['currentActiveTableId'] = 'mytable3';
                             formData(data, 0)
 
                         }
@@ -160,23 +163,32 @@ $(document).ready(function () {
             //$("#load").css("display", "block");
             NProgress.start();
             $("#mytable").css("display", "none");
-            $("#mytable1").css("display", "none");
+            //$("#mytable1").css("display", "none");
+            $('#mytable1').parents('div.dataTables_wrapper').first().hide();
             $("#mytable2").css("display", "none");
-            $("#mytable3").css("display", "none");
-            $("#mytable4").css("display", "none");
-            $("#mytable5").css("display", "none");
-            $("#mytable6").css("display", "none");
+            //$("#mytable3").css("display", "none");
+            $('#mytable3').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable4").css("display", "none");
+            $('#mytable4').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable5").css("display", "none");
+            $('#mytable5').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable6").css("display", "none");
+            $('#mytable6').parents('div.dataTables_wrapper').first().hide();
             $("#eachRow").css("display", "none");
             $("#charts").css("display", "none");
             $("#charts_comp").css("display", "none");
             $("#eachRow_Comp").css("display", "none");
             $("#notifier").css("display", "none");
+            $("#download").css("display", "none");
             if (decider == 0) {
                 if (startDate == $('#calStartDate').val() && endDate == $('#calEndDate').val() && queryHitter > 0) {
                     $("#load").css("display", "none");
                     NProgress.done();
                     $("#mytable").css("display", "table");
                     $("#charts").css("display", "block");
+                    $('#mytable').parents('div.dataTables_wrapper').first().show();
+                    $("#download").css("display", "block");
+                    localStorage['currentActiveTableId'] = 'mytable';
                 }
                 else {
                     startDate = $('#calStartDate').val() ? $('#calStartDate').val() : null;
@@ -199,7 +211,7 @@ $(document).ready(function () {
                                     row += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Query + "\",\"Query\")'><td class=\"column\">" + data[i].Query + "</td><td class=\"column Query_Clicks\">" + data[i].Clicks + "</td><td class=\"column Query_Impressions\">" + data[i].Impressions + "</td><td class=\"column Query_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Query_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                                 }
                                 $("#tablebody").html(row);
-                                $("#tablebody").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable\');"> DOWNLOAD </button></td></tr>');
+                                //$("#tablebody").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable\');"> DOWNLOAD </button></td></tr>');
                                 //$("#mytable").hpaging({
                                 //      "limit": 50  });
                                 formData(data, 1);
@@ -217,6 +229,10 @@ $(document).ready(function () {
                                 columnHide(4, c1, "Query");
                                 $("#mytable").css("display", "table");
                                 $("#charts").css("display", "block");
+                                $("#mytable").dataTable();
+                                $('#mytable').parents('div.dataTables_wrapper').first().show();
+                                $("#download").css("display", "block");
+                                localStorage['currentActiveTableId'] = 'mytable';
                             }
                         });
 
@@ -225,7 +241,9 @@ $(document).ready(function () {
                 queryHitter++;
             }
             else {
-
+                $("#mytable4").remove();
+                tableAdder = '<table id="mytable4" class="table table-striped" style="display:none;"></table>';
+                $("#tableSection").append(tableAdder);
                 C1startDate = $('#startdate1').val() ? $('#startdate1').val() : null;
                 C1endDate = $('#enddate1').val() ? $('#enddate1').val() : null;
                 C2startDate = $('#startdate2').val() ? $('#startdate2').val() : null;
@@ -271,17 +289,13 @@ $(document).ready(function () {
                             $("#mytable4").html(row_head);
 
                             row = "";
-                            //for (var i = 0; i < data[1].length; i++)
                             var loopLimit = data[1].length >= 2000 ? 2000 : data[1].length;
                             for (var i = 0; i < loopLimit; i++) {
 
                                 row += "<tr style='cursor:pointer' onclick='eachRowComp(\"" + data[0][i].Query + "\",\"Query\")'><td>" + data[0][i].Query + "</td><td class=\"Query_Clicks_1\">" + data[0][i].Clicks + "</td><td class=\"Query_Clicks_2\">" + data[1][i].Clicks + "</td><td class=\"Query_Impressions_1\">" + data[0][i].Impressions + "</td><td class=\"Query_Impressions_2\">" + data[1][i].Impressions + "</td><td class=\"Query_CTR_1\">" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td class=\"Query_CTR_2\">" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td class=\"Query_Position_1\">" + data[0][i].Position.toFixed(1) + "</td><td class=\"Query_Position_2\">" + data[1][i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#mytable4").append(row);
-                            $("#mytable4").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable4\');"> DOWNLOAD </button></td></tr>');
-                            //$("#mytable").hpaging({
-                            //      "limit": 50  });
-                            //formData(data, 1);
+                            //$("#mytable4").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable4\');"> DOWNLOAD </button></td></tr>');
                             highlight("mytable4");
                             $("#load").css("display", "none");
                             NProgress.done();
@@ -297,6 +311,10 @@ $(document).ready(function () {
 
                             $("#mytable4").css("display", "table");
                             $("#charts_comp").css("display", "block");
+                            $("#mytable4").dataTable();
+                            $('#mytable4').parents('div.dataTables_wrapper').first().show();
+                            $("#download").css("display", "block");
+                            localStorage['currentActiveTableId'] = 'mytable4';
                         }
                     });
 
@@ -311,15 +329,23 @@ $(document).ready(function () {
             $("#charts_comp").css("display", "none");
             $("#eachRow_Comp").css("display", "none");
             $("#eachRow").css("display", "none");
-            $("#mytable").css("display", "none");
-            $("#mytable1").css("display", "none");
-            $("#mytable2").css("display", "none");
-            $("#mytable3").css("display", "none");
-            $("#mytable4").css("display", "none");
-            $("#mytable5").css("display", "none");
-            $("#mytable6").css("display", "none");
+            //$("#mytable").css("display", "none");
+            $('#mytable').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable1").css("display", "none");
+            $('#mytable1').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable2").css("display", "none");
+            $('#mytable2').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable3").css("display", "none");
+            $('#mytable3').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable4").css("display", "none");
+            $('#mytable4').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable5").css("display", "none");
+            $('#mytable5').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable6").css("display", "none");
+            $('#mytable6').parents('div.dataTables_wrapper').first().hide();
             $("#notifier").css("display", "none");
             $("#load").css("display", "block");
+            $("#download").css("display", "none");
             NProgress.start();
             if (decider == 0) {
                 if (startDate == $('#calStartDate').val() && endDate == $('#calEndDate').val() && pageHitter > 0) {
@@ -327,6 +353,9 @@ $(document).ready(function () {
                     NProgress.done();
                     $("#mytable1").css("display", "table");
                     $("#charts").css("display", "block");
+                    $('#mytable1').parents('div.dataTables_wrapper').first().show();
+                    $("#download").css("display", "block");
+                    localStorage['currentActiveTableId'] = 'mytable1';
                 }
                 else {
                     startDate = $('#calStartDate').val() ? $('#calStartDate').val() : null;
@@ -343,10 +372,7 @@ $(document).ready(function () {
                                     row1 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Page + "\",\"Page\")'><td class=\"column\">" + data[i].Page + "</td><td class=\"column Page_Clicks\">" + data[i].Clicks + "</td><td class=\"column Page_Impressions\">" + data[i].Impressions + "</td><td class=\"column Page_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Page_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                                 }
                                 $("#tablebody1").html(row1);
-                                $("#tablebody1").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable1\');"> DOWNLOAD </button></td></tr>');
-                                //$("#mytable1").hpaging({
-                                //    "limit": 50
-                                //});
+                                //$("#tablebody1").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable1\');"> DOWNLOAD </button></td></tr>');
                                 formData(data, 1);
                                 highlight("mytable1");
                                 $("#load").css("display", "none");
@@ -360,6 +386,10 @@ $(document).ready(function () {
                                 columnHide(4, c1, "Page");
                                 $("#mytable1").css("display", "table");
                                 $("#charts").css("display", "block");
+                                $("#mytable1").dataTable();
+                                $('#mytable1').parents('div.dataTables_wrapper').first().show();
+                                $("#download").css("display", "block");
+                                localStorage['currentActiveTableId'] = 'mytable1';
                             }
                         });
                     }
@@ -367,6 +397,9 @@ $(document).ready(function () {
                 pageHitter++;
             }
             else {
+                $("#mytable5").remove();
+                tableAdder = '<table id="mytable5" class="table table-striped" style="display:none;"></table>';
+                $("#tableSection").append(tableAdder);
                 C1startDate = $('#startdate1').val() ? $('#startdate1').val() : null;
                 C1endDate = $('#enddate1').val() ? $('#enddate1').val() : null;
                 C2startDate = $('#startdate2').val() ? $('#startdate2').val() : null;
@@ -397,7 +430,7 @@ $(document).ready(function () {
 
                             row_head = "<thead>" +
                              " <tr style='background-color:#4896E0'>" +
-                            "<th>Queries</th>" +
+                            "<th>Pages</th>" +
                             "<th id='Clicks_1'>" + C1startDate.substr(C1startDate.indexOf('/') + 1, 2) + " " + months[new Date(C1startDate).getMonth()] + " - " + C1endDate.substr(C1endDate.indexOf('/') + 1, 2) + " " + months[new Date(C1endDate).getMonth()] + " Clicks</th>" +
                             "<th id='Clicks_2'>" + C2startDate.substr(C2startDate.indexOf('/') + 1, 2) + " " + months[new Date(C2startDate).getMonth()] + " - " + C2endDate.substr(C2endDate.indexOf('/') + 1, 2) + " " + months[new Date(C2endDate).getMonth()] + " Clicks</th>" +
                             "<th id='Impressions_1'>" + C1startDate.substr(C1startDate.indexOf('/') + 1, 2) + " " + months[new Date(C1startDate).getMonth()] + " - " + C1endDate.substr(C1endDate.indexOf('/') + 1, 2) + " " + months[new Date(C1endDate).getMonth()] + " Impressions</th>" +
@@ -417,17 +450,17 @@ $(document).ready(function () {
                                 row1 += "<tr style='cursor:pointer' onclick='eachRowComp(\"" + data[0][i].Page + "\",\"Page\")'><td>" + data[0][i].Page + "</td><td class=\"Page_Clicks_1\">" + data[0][i].Clicks + "</td><td class=\"Page_Clicks_2\">" + data[1][i].Clicks + "</td><td class=\"Page_Impressions_1\">" + data[0][i].Impressions + "</td><td class=\"Page_Impressions_2\">" + data[1][i].Impressions + "</td><td class=\"Page_CTR_1\">" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td class=\"Page_CTR_2\">" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td class=\"Page_Position_1\">" + data[0][i].Position.toFixed(1) + "</td><td class=\"Page_Position_2\">" + data[1][i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#mytable5").append(row1);
-                            $("#mytable5").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable5\');"> DOWNLOAD </button></td></tr>');
-                            //$("#mytable1").hpaging({
-                            //    "limit": 50
-                            //});
-                            //formData(data, 1);
+                            //$("#mytable5").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable5\');"> DOWNLOAD </button></td></tr>');
                             highlight("mytable5");
                             $("#load").css("display", "none");
                             NProgress.done();
                             compareColumnHide(8, c3, "Page");
                             $("#mytable5").css("display", "table");
                             $("#charts_comp").css("display", "block");
+                            $("#mytable5").dataTable();
+                            $('#mytable5').parents('div.dataTables_wrapper').first().show();
+                            $("#download").css("display", "block");
+                            localStorage['currentActiveTableId'] = 'mytable5';
                         }
                     });
                 }
@@ -437,18 +470,26 @@ $(document).ready(function () {
         $('#radioDevices').change(function () {
             $("#load").css("display", "block");
             NProgress.start();
-            $("#mytable").css("display", "none");
-            $("#mytable1").css("display", "none");
-            $("#mytable2").css("display", "none");
-            $("#mytable3").css("display", "none");
-            $("#mytable4").css("display", "none");
-            $("#mytable5").css("display", "none");
-            $("#mytable6").css("display", "none");
+            //$("#mytable").css("display", "none");
+            $('#mytable').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable1").css("display", "none");
+            $('#mytable1').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable2").css("display", "none");
+            $('#mytable2').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable3").css("display", "none");
+            $('#mytable3').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable4").css("display", "none");
+            $('#mytable4').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable5").css("display", "none");
+            $('#mytable5').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable6").css("display", "none");
+            $('#mytable6').parents('div.dataTables_wrapper').first().hide();
             $("#eachRow").css("display", "none");
             $("#charts").css("display", "none");
             $("#notifier").css("display", "none");
             $("#charts_comp").css("display", "none");
             $("#eachRow_Comp").css("display", "none");
+            $("#download").css("display", "none");
 
             deviceChecked = $('#radioDevices').val($(this).is(':checked')).val();
 
@@ -458,6 +499,9 @@ $(document).ready(function () {
                     NProgress.done();
                     $("#mytable2").css("display", "table");
                     $("#charts").css("display", "block");
+                    $('#mytable2').parents('div.dataTables_wrapper').first().show();
+                    $("#download").css("display", "block");
+                    localStorage['currentActiveTableId'] = 'mytable2';
                 }
                 else {
                     startDate = $('#calStartDate').val() ? $('#calStartDate').val() : null;
@@ -476,16 +520,17 @@ $(document).ready(function () {
                                     row2 += "<tr><td class=\"column\">" + Typename + "</td><td class=\"column Device_Clicks\">" + data[i].Clicks + "</td><td class=\"column Device_Impressions\">" + data[i].Impressions + "</td><td class=\"column Device_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Device_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                                 }
                                 $("#tablebody2").html(row2);
-                                $("#tablebody2").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable2\');"> DOWNLOAD </button></td></tr>');
-                                //$("#mytable2").hpaging({
-                                //    "limit": 50
-                                //});
+                                //$("#tablebody2").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable2\');"> DOWNLOAD </button></td></tr>');
                                 formData(data, 1);
                                 $("#load").css("display", "none");
                                 NProgress.done();
                                 columnHide(4, c1, "Device");
                                 $("#mytable2").css("display", "table");
                                 $("#charts").css("display", "block");
+                                $("#mytable2").dataTable();
+                                $('#mytable2').parents('div.dataTables_wrapper').first().show();
+                                $("#download").css("display", "block");
+                                localStorage['currentActiveTableId'] = 'mytable2';
                             }
                         });
                     }
@@ -493,6 +538,9 @@ $(document).ready(function () {
                 deviceHitter++;
             }
             else {
+                $("#mytable6").remove();
+                tableAdder = '<table id="mytable6" class="table table-striped" style="display:none;"></table>';
+                $("#tableSection").append(tableAdder);
                 C1startDate = $('#startdate1').val() ? $('#startdate1').val() : null;
                 C1endDate = $('#enddate1').val() ? $('#enddate1').val() : null;
                 C2startDate = $('#startdate2').val() ? $('#startdate2').val() : null;
@@ -542,16 +590,16 @@ $(document).ready(function () {
                                 row2 += "<tr><td>" + Typename + "</td><td class=\"Device_Clicks_1\">" + data[0][i].Clicks + "</td><td class=\"Device_Clicks_2\">" + data[1][i].Clicks + "</td><td class=\"Device_Impressions_1\">" + data[0][i].Impressions + "</td><td class=\"Device_Impressions_2\">" + data[1][i].Impressions + "</td><td class=\"Device_CTR_1\">" + (data[0][i].CTR * 100).toFixed(2) + "%</td><td class=\"Device_CTR_2\">" + (data[1][i].CTR * 100).toFixed(2) + "%</td><td class=\"Device_Position_1\">" + data[0][i].Position.toFixed(1) + "</td><td class=\"Device_Position_2\">" + data[1][i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#mytable6").append(row2);
-                            $("#mytable6").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable6\');"> DOWNLOAD </button></td></tr>');
-                            //$("#mytable1").hpaging({
-                            //    "limit": 50
-                            //});
-                            //formData(data, 1);
+                            //$("#mytable6").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable6\');"> DOWNLOAD </button></td></tr>');
                             $("#load").css("display", "none");
                             NProgress.done();
                             compareColumnHide(8, c3, "Device");
                             $("#mytable6").css("display", "table");
                             $("#charts_comp").css("display", "block");
+                            $("#mytable6").dataTable();
+                            $('#mytable6').parents('div.dataTables_wrapper').first().show();
+                            $("#download").css("display", "block");
+                            localStorage['currentActiveTableId'] = 'mytable6';
                         }
                     });
                 }
@@ -561,18 +609,26 @@ $(document).ready(function () {
         $('#radioDates').change(function () {
             $("#load").css("display", "block");
             NProgress.start();
-            $("#mytable").css("display", "none");
-            $("#mytable1").css("display", "none");
-            $("#mytable2").css("display", "none");
-            $("#mytable3").css("display", "none");
-            $("#mytable4").css("display", "none");
-            $("#mytable5").css("display", "none");
-            $("#mytable6").css("display", "none");
+            //$("#mytable").css("display", "none");
+            $('#mytable').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable1").css("display", "none");
+            $('#mytable1').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable2").css("display", "none");
+            $('#mytable2').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable3").css("display", "none");
+            $('#mytable3').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable4").css("display", "none");
+            $('#mytable4').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable5").css("display", "none");
+            $('#mytable5').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable6").css("display", "none");
+            $('#mytable6').parents('div.dataTables_wrapper').first().hide();
             $("#notifier").css("display", "none");
             $("#charts_comp").css("display", "none");
             $("#eachRow_Comp").css("display", "none");
             $("#eachRow").css("display", "none");
             $("#charts").css("display", "none");
+            $("#download").css("display", "none");
 
             dateChecked = $('#radioDates').val($(this).is(':checked')).val();
 
@@ -582,6 +638,9 @@ $(document).ready(function () {
                     NProgress.done();
                     $("#mytable3").css("display", "table");
                     $("#charts").css("display", "block");
+                    $('#mytable3').parents('div.dataTables_wrapper').first().show();
+                    $("#download").css("display", "block");
+                    localStorage['currentActiveTableId'] = 'mytable3';
                 }
                 else {
                     startDate = $('#calStartDate').val() ? $('#calStartDate').val() : null;
@@ -599,7 +658,7 @@ $(document).ready(function () {
                                     row3 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "\",\"Date\")'><td class=\"column\">" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "</td><td class=\"column Date_Clicks\">" + data[i].Clicks + "</td><td class=\"column Date_Impressions\">" + data[i].Impressions + "</td><td class=\"column Date_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Date_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                                 }
                                 $("#tablebody3").html(row3);
-                                $("#tablebody3").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable3\');"> DOWNLOAD </button></td></tr>');
+                                //$("#tablebody3").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable3\');"> DOWNLOAD </button></td></tr>');
                                 formData(data, 1);
                                 $("#load").css("display", "none");
                                 NProgress.done();
@@ -607,6 +666,10 @@ $(document).ready(function () {
                                 $("#charts").css("display", "block");
                                 $("#mytable3").css("display", "table");
                                 highlight("mytable3");
+                                $("#mytable3").dataTable();
+                                $('#mytable3').parents('div.dataTables_wrapper').first().show();
+                                $("#download").css("display", "block");
+                                localStorage['currentActiveTableId'] = 'mytable3';
 
                             }
                         });
@@ -651,18 +714,26 @@ $(document).ready(function () {
                 if (startDate && endDate) {
                     $("#load").css("display", "block");
                     NProgress.start();
-                    $("#mytable").css("display", "none");
                     $("#eachRow").css("display", "none");
-                    $("#mytable1").css("display", "none");
-                    $("#mytable2").css("display", "none");
-                    $("#mytable3").css("display", "none");
-                    $("#mytable4").css("display", "none");
-                    $("#mytable5").css("display", "none");
-                    $("#mytable6").css("display", "none");
+                    //$("#mytable").css("display", "none");
+                    $('#mytable').parents('div.dataTables_wrapper').first().hide();
+                    //$("#mytable1").css("display", "none");
+                    $('#mytable1').parents('div.dataTables_wrapper').first().hide();
+                    //$("#mytable2").css("display", "none");
+                    $('#mytable2').parents('div.dataTables_wrapper').first().hide();
+                    //$("#mytable3").css("display", "none");
+                    $('#mytable3').parents('div.dataTables_wrapper').first().hide();
+                    //$("#mytable4").css("display", "none");
+                    $('#mytable4').parents('div.dataTables_wrapper').first().hide();
+                    //$("#mytable5").css("display", "none");
+                    $('#mytable5').parents('div.dataTables_wrapper').first().hide();
+                    //$("#mytable6").css("display", "none");
+                    $('#mytable6').parents('div.dataTables_wrapper').first().hide();
                     $("#notifier").css("display", "none");
                     $("#charts").css("display", "none");
                     $("#charts_comp").css("display", "none");
                     $("#eachRow_Comp").css("display", "none");
+                    $("#download").css("display", "none");
 
                     var url = 'http://localhost:61647/api/searchconsole/SearchByDate?startDate=' + startDate + '&endDate=' + endDate + '&domainID=' + parseInt(parameters[0]) + '&';
                     $.ajax({
@@ -677,16 +748,17 @@ $(document).ready(function () {
                                 row3 += "<tr style='cursor:pointer' onclick='eachRow(\"" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "\",\"Date\")'><td class=\"column\">" + data[i].Date.substr(0, data[i].Date.indexOf('T')) + "</td><td class=\"column Date_Clicks\">" + data[i].Clicks + "</td><td class=\"column Date_Impressions\">" + data[i].Impressions + "</td><td class=\"column Date_CTR\">" + (data[i].CTR * 100).toFixed(2) + "%</td><td class=\"column Date_Position\">" + data[i].Position.toFixed(1) + "</td></tr>";
                             }
                             $("#tablebody3").html(row3);
-                            $("#tablebody3").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable3\');"> DOWNLOAD </button></td></tr>');
-                            //$("#mytable3").hpaging({
-                            //    "limit": 50
-                            //});
+                            //$("#tablebody3").append('<tr class="noExl"><td><button onclick="fnExcelReport(\'mytable3\');"> DOWNLOAD </button></td></tr>');
                             $("#load").css("display", "none");
                             NProgress.done();
                             columnHide(4, c1, "Date");
                             $("#charts").css("display", "block");
                             $("#mytable3").css("display", "table");
                             highlight("mytable3");
+                            $("#mytable3").dataTable();
+                            $('#mytable3').parents('div.dataTables_wrapper').first().show();
+                            $("#download").css("display", "block");
+                            localStorage['currentActiveTableId'] = 'mytable3';
                             formData(data, 0);
                         }
                     });
@@ -898,18 +970,26 @@ function eachRow(element, Type) {
             series.push(item2);
             series.push(item3);
             series.push(item4);
-            $("#mytable").css("display", "none");
-            $("#mytable1").css("display", "none");
-            $("#mytable2").css("display", "none");
-            $("#mytable3").css("display", "none");
-            $("#mytable4").css("display", "none");
-            $("#mytable5").css("display", "none");
-            $("#mytable6").css("display", "none");
+            //$("#mytable").css("display", "none");
+            $('#mytable').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable1").css("display", "none");
+            $('#mytable1').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable2").css("display", "none");
+            $('#mytable2').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable3").css("display", "none");
+            $('#mytable3').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable4").css("display", "none");
+            $('#mytable4').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable5").css("display", "none");
+            $('#mytable5').parents('div.dataTables_wrapper').first().hide();
+            //$("#mytable6").css("display", "none");
+            $('#mytable6').parents('div.dataTables_wrapper').first().hide();
             $("#notifier").css("display", "none");
             $("#charts_comp").css("display", "none");
             $("#eachRow_Comp").css("display", "none");
             $("#eachRow").css("display", "none");
             $("#charts").css("display", "none");
+            $("#download").css("display", "none");
             var title = "Data Analysis:<b> " + startDate.substr(startDate.indexOf('/') + 1, 2) + " " + months[new Date(startDate).getMonth()] + " - " + endDate.substr(endDate.indexOf('/') + 1, 2) + " " + months[new Date(endDate).getMonth()] + " </b>";
             chartMaker(categories, series, 1, element, title);
             $("#load").css("display", "none");
@@ -949,19 +1029,27 @@ function eachRowComp(element, Type) {
 
     $("#load").css("display", "block");
     NProgress.start();
-    $("#mytable").css("display", "none");
     $("#eachRow").css("display", "none");
-    $("#mytable1").css("display", "none");
-    $("#mytable2").css("display", "none");
-    $("#mytable3").css("display", "none");
-    $("#mytable4").css("display", "none");
-    $("#mytable5").css("display", "none");
-    $("#mytable6").css("display", "none");
+    //$("#mytable").css("display", "none");
+    $('#mytable').parents('div.dataTables_wrapper').first().hide();
+    //$("#mytable1").css("display", "none");
+    $('#mytable1').parents('div.dataTables_wrapper').first().hide();
+    //$("#mytable2").css("display", "none");
+    $('#mytable2').parents('div.dataTables_wrapper').first().hide();
+    //$("#mytable3").css("display", "none");
+    $('#mytable3').parents('div.dataTables_wrapper').first().hide();
+    //$("#mytable4").css("display", "none");
+    $('#mytable4').parents('div.dataTables_wrapper').first().hide();
+    //$("#mytable5").css("display", "none");
+    $('#mytable5').parents('div.dataTables_wrapper').first().hide();
+    //$("#mytable6").css("display", "none");
+    $('#mytable6').parents('div.dataTables_wrapper').first().hide();
     $("#notifier").css("display", "none");
     $("#charts_comp").css("display", "none");
     $("#eachRow_Comp").css("display", "none");
     $("#eachRow").css("display", "none");
     $("#charts").css("display", "none");
+    $("#download").css("display", "none");
 
     var yu = 'http://localhost:61647/api/searchconsole/' + functionName + '?startDate1=' + C1startDate + '&endDate1=' + C1endDate + '&startDate2=' + C2startDate + '&endDate2=' + C2endDate + '&' + Type + '=' + element + '&domainID=' + parseInt(parameters[0]) + '&';
     $.ajax({
@@ -1074,19 +1162,27 @@ function comparisondata(startDate, endDate, s2, e2) {
     $("#Title_Position1").html("Position <br>" + s2.substr(s2.indexOf('/') + 1, 2) + " " + months[new Date(s2).getMonth()] + " - " + e2.substr(e2.indexOf('/') + 1, 2) + " " + months[new Date(e2).getMonth()]);
 
     if (startDate && endDate) {
-        $("#mytable").css("display", "none");
-        $("#mytable1").css("display", "none");
-        $("#mytable2").css("display", "none");
-        $("#mytable3").css("display", "none");
-        $("#mytable4").css("display", "none");
-        $("#mytable5").css("display", "none");
-        $("#mytable6").css("display", "none");
+        //$("#mytable").css("display", "none");
+        $('#mytable').parents('div.dataTables_wrapper').first().hide();
+        //$("#mytable1").css("display", "none");
+        $('#mytable1').parents('div.dataTables_wrapper').first().hide();
+        //$("#mytable2").css("display", "none");
+        $('#mytable2').parents('div.dataTables_wrapper').first().hide();
+        //$("#mytable3").css("display", "none");
+        $('#mytable3').parents('div.dataTables_wrapper').first().hide();
+        //$("#mytable4").css("display", "none");
+        $('#mytable4').parents('div.dataTables_wrapper').first().hide();
+        //$("#mytable5").css("display", "none");
+        $('#mytable5').parents('div.dataTables_wrapper').first().hide();
+        //$("#mytable6").css("display", "none");
+        $('#mytable6').parents('div.dataTables_wrapper').first().hide();
         //$("#load").css("display", "none");
         //NProgress.done();
         $("#eachRow").css("display", "none");
         $("#charts").css("display", "none");
         $("#charts_comp").css("display", "none");
         $("#notifier").css("display", "none");
+        $("#download").css("display", "none");
         //$("#load").css("display", "block");
         //NProgress.start();
         var url = 'http://localhost:61647/api/searchconsole/Comp_SearchByDate?startDate1=' + startDate + '&endDate1=' + endDate + '&startDate2=' + s2 + '&endDate2=' + e2 + '&domainID=' + parseInt(parameters[0]) + '&';
@@ -1586,7 +1682,9 @@ function highlight(tableid) {
 //    return (sa);
 //}
 
-function fnExcelReport(id) {
+function fnExcelReport() {
+    var id = localStorage['currentActiveTableId'];
+
     $("#" + id).table2excel({
         // exclude CSS class
         exclude: ".noExl",

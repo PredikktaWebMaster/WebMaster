@@ -230,5 +230,6 @@ D:\WebMaster\WebMaster\WebMaster\bin\System.IdentityModel.Tokens.Jwt.xml
 D:\WebMaster\WebMaster\WebMaster\bin\System.Net.Http.Formatting.xml
 D:\WebMaster\WebMaster\WebMaster\bin\System.Web.Http.xml
 D:\WebMaster\WebMaster\WebMaster\bin\System.Web.Http.WebHost.xml
+D:\WebMaster\WebMaster\WebMaster\obj\Debug\WebMaster.csprojResolveAssemblyReference.cache
 D:\WebMaster\WebMaster\WebMaster\obj\Debug\WebMaster.dll
 D:\WebMaster\WebMaster\WebMaster\obj\Debug\WebMaster.pdb
